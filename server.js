@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path')
 const fs = require('fs')
 const db = require('./db/db.json')
+const uid = require('generate-unique-id')
+const generateUniqueId = require('generate-unique-id')
 
 const PORT = process.env.PORT || 3001
 
@@ -28,6 +30,10 @@ app.get('*', (req, res) => {
 app.post('/api/notes', (req, res) => {
     console.log('title', req.body.title)
     console.log('text', req.body.text)
+
+    req.body.id = generateUniqueId({
+        length: 8
+    })
 
     db.push(req.body)
 
